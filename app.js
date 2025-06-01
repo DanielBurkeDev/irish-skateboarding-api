@@ -102,11 +102,15 @@ app.use(errorMiddleware);
 
 // DB + Start server
 await mongoose.connect(DB_URI);
-app.listen(PORT, async () => {
-    console.log(`Irish Skateboard API is running on http://localhost:${PORT}`);
-    await connectToDatabase();
-});
+// app.listen(PORT, async () => {
+//     console.log(`Irish Skateboard API is running on http://localhost:${PORT}`);
+//     await connectToDatabase();
+// });
 
+// FOR RENDER
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
 export default app;
 
 

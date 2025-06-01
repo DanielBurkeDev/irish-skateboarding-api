@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: irish-skateboarding-api
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DB_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: JWT_EXPIRES_IN
+        value: 1D
+      - key: ARCJET_KEY
+        sync: false
+      - key: ARCJET_ENV
+        value: production
+      - key: CLERK_SECRET_KEY
+        sync: false
+      - key: CLERK_JWT_KEY
+        sync: false
