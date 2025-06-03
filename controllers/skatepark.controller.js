@@ -17,7 +17,7 @@ export const getSkateparks = async (req, res, next) => {
             };
         }
 
-        const skateparks = await Skatepark.find(filter);
+        const skateparks = await Skatepark.find(filter).lean();
 
         console.log("Search query:", req.query.search);
         console.log("Mongo filter applied:", filter);
@@ -42,7 +42,7 @@ export const getSkateparks = async (req, res, next) => {
 
 export const getSkatepark = async (req, res, next) => {
     try {
-        const skatepark = await Skatepark.findById(req.params.id);
+        const skatepark = await Skatepark.findById(req.params.id).lean();
 
         if(!skatepark){
             const error = new Error('Skatepark not found');
