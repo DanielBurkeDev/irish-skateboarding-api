@@ -75,13 +75,6 @@ const adminOptions = {
             },
         },
         {
-            resource: Skateshop,
-            options: {
-                parent: { name: 'Management', icon: 'Map' },
-                navigation: { name: 'Management', icon: 'Map' },
-            },
-        },
-        {
             resource: User,
             options: {
                 parent: { name: 'Management', icon: 'User' },
