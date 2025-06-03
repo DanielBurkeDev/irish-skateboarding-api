@@ -80,13 +80,6 @@ const adminOptions = {
 };
 
 
-// Dummy admin user
-const ADMIN = {
-    email: 'admin@example.com',
-    password: '$2b$10$CkwKpX8E0wVtFErqzYFwUeD1pJ7tGpE4/nBevYBGgPyxT/1BhEoEu', // bcrypt hash of 'admin123'
-    role: 'admin',
-};
-
 const admin = new AdminJS(adminOptions);
 // const adminRouter = AdminJSExpress.buildRouter(admin);
 const adminRouter = AdminJSExpress.buildAuthenticatedRouter(

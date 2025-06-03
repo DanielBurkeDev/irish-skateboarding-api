@@ -2,11 +2,12 @@
 import Skatepark from '../models/skatepark.model.js';
 
 const migrateImageUrlsToArray = {
+    name: 'migrateImageUrls',
     actionType: 'resource',
     label: 'Migrate Image URLs',
     icon: 'Redo',
     guard: 'This will update string image URLs to arrays. Are you sure?',
-    isAccessible: ({ currentAdmin }) => currentAdmin && currentAdmin.role === 'admin',
+    isAccessible: ({ currentAdmin }) => currentAdmin?.email === process.env.ADMIN_EMAIL,
     properties: {
         dryRun: {
             type: 'boolean',
