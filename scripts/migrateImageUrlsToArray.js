@@ -8,6 +8,7 @@ const migrateImageUrlsToArray = {
     icon: 'Redo',
     guard: 'This will update string image URLs to arrays. Are you sure?',
     isAccessible: ({ currentAdmin }) => currentAdmin?.email === process.env.ADMIN_EMAIL,
+    component: false, // 👈 disables frontend form, still allows backend execution
     properties: {
         dryRun: {
             type: 'boolean',
