@@ -36,26 +36,6 @@ const app = express();
 // Clerk middleware – added EARLY
 // app.use(ClerkExpressWithAuth());
 
-// Built-in middleware
-app.use(express.json({ limit: '10mb' })); // for base64 payloads
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(arcjetMiddleware);
-app.use('/uploads', express.static(path.resolve('uploads')));
-app.use(express.static('public'));
-
-// Routes
-app.use('/api/v1/users', userRouter);
-app.use('/api/v1/subscriptions', subscriptionRouter);
-app.use('/api/v1/skateparks', skateparksRouter);
-app.use('/api/v1/skateshops', skateshopsRouter);
-app.use('/api/spots', spotRouter);
-
-// Health check
-app.get('/', (req, res) => {
-    res.send('Welcome to the Irish Skateboarding API');
-});
-
 // AdminJS setup
 const adminOptions = {
     resources: [
@@ -97,6 +77,7 @@ const adminOptions = {
     },
 };
 
+
 // Dummy admin user
 const ADMIN = {
     email: 'admin@example.com',
@@ -128,6 +109,31 @@ const adminRouter = AdminJSExpress.buildAuthenticatedRouter(
 
 // app.use(admin.options.rootPath, adminRouter);
 app.use(admin.options.rootPath, adminRouter);
+
+
+
+// Built-in middleware
+app.use(express.json({ limit: '10mb' })); // for base64 payloads
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(arcjetMiddleware);
+app.use('/uploads', express.static(path.resolve('uploads')));
+app.use(express.static('public'));
+
+// Routes
+app.use('/api/v1/users', userRouter);
+app.use('/api/v1/subscriptions', subscriptionRouter);
+app.use('/api/v1/skateparks', skateparksRouter);
+app.use('/api/v1/skateshops', skateshopsRouter);
+app.use('/api/spots', spotRouter);
+
+// Health check
+app.get('/', (req, res) => {
+    res.send('Welcome to the Irish Skateboarding API');
+});
+
+
+
 
 // Error handler (after routes)
 app.use(errorMiddleware);
