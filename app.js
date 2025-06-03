@@ -97,8 +97,36 @@ const adminOptions = {
     },
 };
 
+// Dummy admin user
+const ADMIN = {
+    email: 'admin@example.com',
+    password: '$2b$10$CkwKpX8E0wVtFErqzYFwUeD1pJ7tGpE4/nBevYBGgPyxT/1BhEoEu', // bcrypt hash of 'admin123'
+    role: 'admin',
+};
+
 const admin = new AdminJS(adminOptions);
-const adminRouter = AdminJSExpress.buildRouter(admin);
+// const adminRouter = AdminJSExpress.buildRouter(admin);
+const adminRouter = AdminJSExpress.buildAuthenticatedRouter(
+    admin,
+    {
+        authenticate: async (email, password) => {
+            if (email === ADMIN.email && await bcrypt.compare(password, ADMIN.password)) {
+                return ADMIN;
+            }
+            return null;
+        },
+        cookieName: 'adminjs',
+        cookiePassword: 'a-very-secret-password',
+    },
+    null,
+    {
+        resave: false,
+        saveUninitialized: true,
+    }
+);
+
+
+// app.use(admin.options.rootPath, adminRouter);
 app.use(admin.options.rootPath, adminRouter);
 
 // Error handler (after routes)
