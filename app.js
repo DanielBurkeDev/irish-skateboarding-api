@@ -24,6 +24,8 @@ import cookieParser from 'cookie-parser';
 import path from 'path';
 import mongoose from 'mongoose';
 import SkateparkResource from "./scripts/migrateImageUrlsToArray.js";
+import bcrypt from 'bcryptjs';
+
 
 
 AdminJS.registerAdapter({
