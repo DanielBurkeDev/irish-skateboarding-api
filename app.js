@@ -93,19 +93,17 @@ const adminRouter = AdminJSExpress.buildAuthenticatedRouter(
     admin,
     {
         authenticate: async (email, password) => {
-            if (email === ADMIN.email && await bcrypt.compare(password, ADMIN.password)) {
-                return ADMIN;
+            if (
+                email === process.env.ADMIN_EMAIL &&
+                await bcrypt.compare(password, process.env.ADMIN_PASSWORD_HASH)
+            ) {
+                return { email };
             }
             return null;
         },
         cookieName: 'adminjs',
-        cookiePassword: 'a-very-secret-password',
+        cookiePassword: 'super-secret-cookie',
     },
-    null,
-    {
-        resave: false,
-        saveUninitialized: true,
-    }
 );
 
 
