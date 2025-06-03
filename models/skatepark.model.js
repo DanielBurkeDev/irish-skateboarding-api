@@ -52,7 +52,8 @@ const skateparkSchema = new mongoose.Schema({
         maxlength: 2000
     },
     image: {
-        type: String,
+        type: [String],
+        default: [],
     },
     fee: {
         type: String,

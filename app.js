@@ -7,11 +7,11 @@ import skateparksRouter from './routes/skateparks.routes.js';
 import spotRouter from './routes/spot.routes.js';
 import skateshopsRouter from './routes/skateshops.routes.js';
 
-import connectToDatabase from './database/mongodb.js';
+// import connectToDatabase from './database/mongodb.js';
 import errorMiddleware from './middlewares/error.middleware.js';
 import arcjetMiddleware from './middlewares/arcjet.middleware.js';
 
-import Skatepark from './models/skatepark.model.js';
+// import Skatepark from './models/skatepark.model.js';
 import Subscription from './models/subscription.model.js';
 import User from './models/user.model.js';
 import Skateshop from './models/skateshop.model.js';
@@ -23,6 +23,8 @@ import * as AdminJSMongoose from '@adminjs/mongoose';
 import cookieParser from 'cookie-parser';
 import path from 'path';
 import mongoose from 'mongoose';
+import SkateparkResource from "./scripts/migrateImageUrlsToArray.js";
+
 
 AdminJS.registerAdapter({
     Resource: AdminJSMongoose.Resource,
@@ -57,8 +59,16 @@ app.get('/', (req, res) => {
 // AdminJS setup
 const adminOptions = {
     resources: [
+        // {
+        //     resource: Skatepark,
+        //     options: {
+        //         parent: { name: 'Management', icon: 'Map' },
+        //         navigation: { name: 'Management', icon: 'Map' },
+        //     },
+        // },
+        SkateparkResource,
         {
-            resource: Skatepark,
+            resource: Skateshop,
             options: {
                 parent: { name: 'Management', icon: 'Map' },
                 navigation: { name: 'Management', icon: 'Map' },
@@ -85,6 +95,7 @@ const adminOptions = {
                 navigation: { name: 'Management', icon: 'User' },
             },
         },
+
     ],
     branding: {
         logo: '/logo-badge.png',
