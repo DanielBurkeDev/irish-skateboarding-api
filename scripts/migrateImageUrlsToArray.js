@@ -75,6 +75,10 @@ const SkateparkResource = {
         actions: {
             migrateImageUrls: migrateImageUrlsToArray,
         },
+        sort: {
+            sortBy: 'name', // <- change this to your field
+            direction: 'asc', // or 'desc'
+        },
     },
 };
 

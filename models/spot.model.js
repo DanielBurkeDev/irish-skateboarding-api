@@ -21,7 +21,9 @@ const spotSchema = new mongoose.Schema({
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     comments: [commentSchema],
     likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-}, { timestamps: true });
+}, {
+    timestamps: true,
+});
 
 const Spot = mongoose.model('Spot', spotSchema);
 export default Spot;
