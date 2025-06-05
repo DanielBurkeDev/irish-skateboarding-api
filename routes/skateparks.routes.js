@@ -6,11 +6,13 @@ import  {requireAuth} from "../middlewares/clerkAuth.middleware.js";
 
 const skateparksRouter = new Router();
 
+skateparksRouter.get("/features", getAllFeatures);
+
 skateparksRouter.get('/',  getSkateparks);
 
 skateparksRouter.get('/:id', getSkatepark);
 
-skateparksRouter.get("/features", getAllFeatures);
+
 
 // skateparksRouter.post('/', authorize, createSkatepark);
 skateparksRouter.post('/', requireAuth, createSkatepark);
