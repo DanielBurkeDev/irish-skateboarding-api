@@ -1,0 +1,23 @@
+export const SKATEPARK_FEATURES = [
+    'Bank',
+    'Bench',
+    'Bowl',
+    'Euro Gap',
+    'Flat Bar',
+    'Flatground',
+    'Funbox',
+    'Hubba',
+    'Ledge',
+    'Lights',
+    'Manny Pad',
+    'Mini Ramp',
+    'Quarter',
+    'Rails',
+    'Spine',
+    'Stairs',
+    'Transition',
+    'Vert Wall',
+    'Pump Track',
+    'Parking',
+    'Toilets'
+];
