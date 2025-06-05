@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import { createSkatepark, getSkatepark, getSkateparks } from "../controllers/skatepark.controller.js";
+import {createSkatepark, getAllFeatures, getSkatepark, getSkateparks} from "../controllers/skatepark.controller.js";
 // import authorize from "../middlewares/auth.middleware.js";
 import  {requireAuth} from "../middlewares/clerkAuth.middleware.js";
 
@@ -9,6 +9,8 @@ const skateparksRouter = new Router();
 skateparksRouter.get('/',  getSkateparks);
 
 skateparksRouter.get('/:id', getSkatepark);
+
+skateparksRouter.get("/features", getAllFeatures);
 
 // skateparksRouter.post('/', authorize, createSkatepark);
 skateparksRouter.post('/', requireAuth, createSkatepark);

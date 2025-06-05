@@ -12,7 +12,8 @@ export const getSkateparks = async (req, res, next) => {
             filter = {
                 $or: [
                     { name: { $regex: search, $options: 'i' } },
-                    { county: { $regex: search, $options: 'i' } }
+                    { county: { $regex: search, $options: 'i' } },
+                    { features: { $regex: search, $options: 'i' } }
                 ]
             };
         }
@@ -68,3 +69,12 @@ export const createSkatepark = async (req, res, next) => {
         next(error);
     }
 }
+
+export const getAllFeatures = async (req, res, next) => {
+    try {
+        const features = await Skatepark.distinct("features", { features: { $ne: null } });
+        res.status(200).json({ success: true, data: features });
+    } catch (error) {
+        next(error);
+    }
+};
