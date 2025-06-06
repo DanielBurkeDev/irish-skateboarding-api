@@ -14,8 +14,8 @@ const skateparkSchema = new mongoose.Schema({
         maxlength: 50
     },
     county: {
-        type: String,
-        maxlength: 30
+        type: [String],
+
     },
     address: {
         type: String,
