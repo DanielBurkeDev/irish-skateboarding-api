@@ -2,26 +2,43 @@ import Skatepark from "../models/skatepark.model.js";
 import {SKATEPARK_FEATURES} from "../constants/features.js";
 import {SKATEPARK_COUNTIES} from "../constants/counties.js";
 
-const migrateCountiesToArray = {
-    name: 'migrateCounties',
+const migrateCountyToArray = {
+    name: 'migrateCounty',
     actionType: 'resource',
     icon: 'Redo',
-    label: 'Migrate Counties to Array',
+    label: 'Migrate County Field Properly',
     handler: async (request, response, context) => {
         const { resource } = context;
-
-        const records = await resource.findMany(); // fetch all skatepark records
+        const records = await resource.findMany();
         let updatedCount = 0;
 
         for (const record of records) {
-            const county = record.param('county');
+            const params = record.params;
+            const oldCounties = params.counties;
+            const currentCounty = params.county;
 
-            // Check if counties is a string and convert to array
-            if (typeof county === 'string') {
-                await record.update({ county: [county] });
-                updatedCount++;
-            } else if (county === null || county === undefined) {
-                await record.update({ county: [] }); // default to empty array
+            let updatedData = {};
+
+            // If 'counties' is a string, move it to 'county' as array
+            if (typeof oldCounties === 'string') {
+                updatedData.county = [oldCounties];
+            }
+
+            // If 'counties' is an array and 'county' is missing, move the array
+            if (Array.isArray(oldCounties) && (!currentCounty || currentCounty.length === 0)) {
+                updatedData.county = oldCounties;
+            }
+
+            // If 'county' exists as string, convert to array
+            if (typeof currentCounty === 'string') {
+                updatedData.county = [currentCounty];
+            }
+
+            // Remove 'counties' field
+            updatedData.counties = null;
+
+            if (Object.keys(updatedData).length > 0) {
+                await record.update(updatedData);
                 updatedCount++;
             }
         }
@@ -33,9 +50,8 @@ const migrateCountiesToArray = {
             },
         };
     },
-    component: false, // no custom UI
+    component: false,
 };
-
 
 
 
@@ -48,10 +64,13 @@ const SkateparkResource = {
                 isArray: true,
                 availableValues: SKATEPARK_FEATURES.map(f => ({value: f, label: f}))
             },
-            counties: {
+            county: {
                 isArray: true,
-                availableValues: SKATEPARK_COUNTIES.map(f => ({value: f, label: f}))
-            }
+                availableValues: SKATEPARK_COUNTIES.map(f => ({ value: f, label: f })),
+            },
+            counties: {
+                isVisible: false, // Hides it from list/edit/show views
+            },
         },
         parent: {name: 'Management', icon: 'Map'},
         navigation: {name: 'Management', icon: 'Map'},
@@ -59,7 +78,7 @@ const SkateparkResource = {
         //     migrateImageUrls: migrateImageUrlsToArray,
         // },
         actions: {
-            migrateCounties: migrateCountiesToArray,
+            migrateCounties: migrateCountyToArray,
         },
         sort: {
             sortBy: 'name', // <- change this to your field
