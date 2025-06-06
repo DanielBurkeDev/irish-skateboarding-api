@@ -66,6 +66,3 @@ const migrateImageUrlsToArray = {
     },
 };
 
-
-
-
