@@ -78,3 +78,12 @@ export const getAllFeatures = async (req, res, next) => {
         next(error);
     }
 };
+
+export const getAllCounties = async (req, res, next) => {
+    try {
+        const counties = await Skatepark.distinct("county", { county: { $ne: null } });
+        res.status(200).json({ success: true, data: counties });
+    } catch (error) {
+        next(error);
+    }
+};
