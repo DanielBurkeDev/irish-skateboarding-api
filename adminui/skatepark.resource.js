@@ -14,14 +14,14 @@ const migrateCountiesToArray = {
         let updatedCount = 0;
 
         for (const record of records) {
-            const counties = record.param('counties');
+            const county = record.param('county');
 
             // Check if counties is a string and convert to array
-            if (typeof counties === 'string') {
-                await record.update({ counties: [counties] });
+            if (typeof county === 'string') {
+                await record.update({ county: [county] });
                 updatedCount++;
-            } else if (counties === null || counties === undefined) {
-                await record.update({ counties: [] }); // default to empty array
+            } else if (county === null || county === undefined) {
+                await record.update({ county: [] }); // default to empty array
                 updatedCount++;
             }
         }
